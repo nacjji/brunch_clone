@@ -1,3 +1,5 @@
+const { UnexpectedError } = require('../../middlewares/custom-exception');
+
 class PostsRepository {
   constructor(PostsModel) {
     this.postsModel = PostsModel;
@@ -13,27 +15,40 @@ class PostsRepository {
   };
 
   // 전체 게시글 조회
-  findAllPosts = async () => await this.postsModel.findAll();
+  findAllPosts = async () => {
+    await this.postsModel.findAll();
+  };
 
   // 게시글 상세조회
-  findDetailPost = async (postId) =>
-    await this.postsModel.findOne({ where: { postId } });
+  findDetailPost = async (postId) => {
+    const post = await this.postsModel.findOne({ where: { postId } });
+    if (!post) {
+      throw new UnexpectedError('없는 게시글입니다.', 404);
+    }
+    return post;
+  };
 
   updatePost = async (postId, title, content, coverImageFile) => {
     const findPostForUpdate = await this.postsModel.findOne({
       where: { postId },
     });
     if (!findPostForUpdate) {
-      // TODO: throw NotFound Error
+      throw new UnexpectedError('없는 게시글입니다.', 404);
     }
 
-    await this.postsModel.update(
+    const post = await this.postsModel.update(
       { title, content, coverImage: coverImageFile },
       { where: { postId } },
     );
+    return post;
   };
 
-  deletePost = async (postId) =>
-    await this.postsModel.destroy({ where: { postId } });
+  deletePost = async (postId) => {
+    const post = await this.postsModel.destroy({ where: { postId } });
+    if (!post) {
+      throw new UnexpectedError('없는 게시글입니다.', 404);
+    }
+    return post;
+  };
 }
 module.exports = PostsRepository;
