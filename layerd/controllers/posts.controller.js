@@ -38,6 +38,12 @@ class PostsController {
     await this.postsService.updatePost(postId, title, content);
     return res.status(201).json({ result: '게시글 수정 완료' });
   };
+
+  deletePost = async (req, res) => {
+    const { postId } = req.params;
+    await this.postsService.deletePost(postId);
+    return res.status(201).json({ result: '게시글 삭제 완료' });
+  };
 }
 
 module.exports = PostsController;
