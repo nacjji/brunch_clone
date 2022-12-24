@@ -16,6 +16,12 @@ class PostsController {
     const posts = await this.postsService.findAllPosts();
     return res.status(200).json({ result: posts });
   };
+
+  findDetailPost = async (req, res) => {
+    const { postId } = req.params;
+    const post = await this.postsService.findDetailPost(postId);
+    return res.status(200).json({ result: post });
+  };
 }
 
 module.exports = PostsController;

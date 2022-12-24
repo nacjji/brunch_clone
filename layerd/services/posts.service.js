@@ -12,10 +12,10 @@ class PostsService {
       coverImageFile,
     );
 
-  findAllPosts = async () => {
-    const posts = await this.postRepository.findAllPosts();
-    return posts;
-  };
+  findAllPosts = async () => await this.postRepository.findAllPosts();
+
+  findDetailPost = async (postId) =>
+    await this.postRepository.findDetailPost(postId);
 }
 
 module.exports = PostsService;

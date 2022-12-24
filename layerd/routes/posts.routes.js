@@ -12,5 +12,6 @@ router.post(
 );
 
 router.get('/', postController.findAllPosts);
+router.get('/:postId', postController.findDetailPost);
 
 module.exports = router;
