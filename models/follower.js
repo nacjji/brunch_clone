@@ -13,7 +13,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   Followers.init(
     {
-      followerId: DataTypes.INTEGER,
+      followerId: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
       userId: DataTypes.INTEGER,
     },
     {
