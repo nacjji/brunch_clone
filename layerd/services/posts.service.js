@@ -24,6 +24,9 @@ class PostsService {
       content,
       coverImageFile,
     );
+  deletePost = async (postId) => {
+    await this.postRepository.deletePost(postId);
+  };
 }
 
 module.exports = PostsService;
