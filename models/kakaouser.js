@@ -17,7 +17,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   KakaoUsers.init(
     {
-      userId: DataTypes.INTEGER,
+      userId: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
       socialId: DataTypes.STRING,
       writer: DataTypes.STRING,
       profileImage: DataTypes.STRING,

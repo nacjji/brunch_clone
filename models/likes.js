@@ -14,7 +14,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   Likes.init(
     {
-      likesId: DataTypes.INTEGER,
+      likeId: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
       postId: DataTypes.INTEGER,
       userId: DataTypes.INTEGER,
     },
