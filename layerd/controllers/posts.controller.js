@@ -8,19 +8,36 @@ class PostsController {
     const userId = 1;
     const coverImageFile = req.file.location;
     const { title, content } = req.body;
-    await this.postsService.createPost(userId, title, content, coverImageFile);
-    return res.status(201).json({ message: '생성완료' });
+    try {
+      await this.postsService.createPost(
+        userId,
+        title,
+        content,
+        coverImageFile,
+      );
+      return res.status(201).json({ message: '생성완료' });
+    } catch (error) {
+      res.status(error).json({ message: error.message });
+    }
   };
 
   findAllPosts = async (req, res) => {
-    const posts = await this.postsService.findAllPosts();
-    return res.status(200).json({ result: posts });
+    try {
+      const posts = await this.postsService.findAllPosts();
+      return res.status(200).json({ result: posts });
+    } catch (error) {
+      res.status(error.status).json({ error: error.message });
+    }
   };
 
   findDetailPost = async (req, res) => {
     const { postId } = req.params;
-    const post = await this.postsService.findDetailPost(postId);
-    return res.status(200).json({ result: post });
+    try {
+      const post = await this.postsService.findDetailPost(postId);
+      return res.status(200).json({ result: post });
+    } catch (error) {
+      res.status(error.status).json({ error: error.message });
+    }
   };
 
   updatePost = async (req, res) => {
@@ -35,14 +52,22 @@ class PostsController {
         coverImageFile,
       );
     }
-    await this.postsService.updatePost(postId, title, content);
-    return res.status(201).json({ result: '게시글 수정 완료' });
+    try {
+      await this.postsService.updatePost(postId, title, content);
+      return res.status(201).json({ result: '게시글 수정 완료' });
+    } catch (error) {
+      return res.status(error.status).json({ error: error.message });
+    }
   };
 
   deletePost = async (req, res) => {
     const { postId } = req.params;
-    await this.postsService.deletePost(postId);
-    return res.status(201).json({ result: '게시글 삭제 완료' });
+    try {
+      await this.postsService.deletePost(postId);
+      return res.status(201).json({ result: '게시글 삭제 완료' });
+    } catch (error) {
+      return res.status(error.status).json({ error: error.message });
+    }
   };
 }
 
