@@ -17,9 +17,11 @@ module.exports = {
       },
       profileImage: {
         type: Sequelize.STRING,
+        allowNull: true,
       },
       selfIntro: {
         type: Sequelize.STRING,
+        allowNull: true,
       },
       accessToken: {
         type: Sequelize.STRING,

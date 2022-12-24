@@ -25,8 +25,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       socialId: DataTypes.STRING,
       writer: DataTypes.STRING,
-      profileImage: DataTypes.STRING,
-      selfIntro: DataTypes.STRING,
+      profileImage: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      selfIntro: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       accessToken: DataTypes.STRING,
     },
     {

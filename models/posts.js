@@ -22,10 +22,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
       },
       userId: DataTypes.INTEGER,
-      coverImage: DataTypes.STRING,
       title: DataTypes.STRING,
       content: DataTypes.STRING,
-      image: DataTypes.STRING,
+      coverImage: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
     {
       sequelize,

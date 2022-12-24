@@ -11,22 +11,15 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: 'KakaoUsers',
-          key: 'userId',
-        },
-        onDelete: 'CASCADE',
       },
       coverImage: {
         type: Sequelize.STRING,
+        allowNull: true,
       },
       title: {
         type: Sequelize.STRING,
       },
       content: {
-        type: Sequelize.STRING,
-      },
-      image: {
         type: Sequelize.STRING,
       },
       createdAt: {
