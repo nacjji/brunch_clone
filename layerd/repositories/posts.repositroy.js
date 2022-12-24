@@ -18,5 +18,19 @@ class PostsRepository {
   // 게시글 상세조회
   findDetailPost = async (postId) =>
     await this.postsModel.findOne({ where: { postId } });
+
+  updatePost = async (postId, title, content, coverImageFile) => {
+    const findPostForUpdate = await this.postsModel.findOne({
+      where: { postId },
+    });
+    if (!findPostForUpdate) {
+      // TODO: throw NotFound Error
+    }
+
+    await this.postsModel.update(
+      { title, content, coverImage: coverImageFile },
+      { where: { postId } },
+    );
+  };
 }
 module.exports = PostsRepository;

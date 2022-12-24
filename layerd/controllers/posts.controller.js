@@ -22,6 +22,22 @@ class PostsController {
     const post = await this.postsService.findDetailPost(postId);
     return res.status(200).json({ result: post });
   };
+
+  updatePost = async (req, res) => {
+    const { postId } = req.params;
+    const { title, content } = req.body;
+    if (req.file) {
+      const coverImageFile = req.file.location;
+      await this.postsService.updatePost(
+        postId,
+        title,
+        content,
+        coverImageFile,
+      );
+    }
+    await this.postsService.updatePost(postId, title, content);
+    return res.status(201).json({ result: '게시글 수정 완료' });
+  };
 }
 
 module.exports = PostsController;

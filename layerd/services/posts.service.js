@@ -16,6 +16,14 @@ class PostsService {
 
   findDetailPost = async (postId) =>
     await this.postRepository.findDetailPost(postId);
+
+  updatePost = async (postId, title, content, coverImageFile) =>
+    await this.postRepository.updatePost(
+      postId,
+      title,
+      content,
+      coverImageFile,
+    );
 }
 
 module.exports = PostsService;
