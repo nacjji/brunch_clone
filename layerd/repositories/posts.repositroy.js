@@ -13,9 +13,10 @@ class PostsRepository {
   };
 
   // 전체 게시글 조회
-  findAllPosts = async () => {
-    const posts = await this.postsModel.findAll();
-    return posts;
-  };
+  findAllPosts = async () => await this.postsModel.findAll();
+
+  // 게시글 상세조회
+  findDetailPost = async (postId) =>
+    await this.postsModel.findOne({ where: { postId } });
 }
 module.exports = PostsRepository;
