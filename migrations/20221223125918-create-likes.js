@@ -11,19 +11,9 @@ module.exports = {
       },
       postId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: 'Posts',
-          key: 'postId',
-        },
-        onDelete: 'CASCADE',
       },
       userId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: 'KakaoUsers',
-          key: 'userId',
-        },
-        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
