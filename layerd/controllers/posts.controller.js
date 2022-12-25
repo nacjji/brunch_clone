@@ -7,11 +7,7 @@ class PostsController {
     // const { userId } = res.locals.user;
     const userId = 1;
     const coverImageFile = req.file.location;
-    console.log(
-      '🚀 ~ file: posts.controller.js:10 ~ PostsController ~ createPost= ~ coverImageFile',
-      req.file,
-    );
-    console.log(coverImageFile);
+
     const { title, content } = req.body;
     try {
       await this.postsService.createPost(

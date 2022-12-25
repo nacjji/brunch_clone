@@ -1,8 +1,9 @@
 const { UnexpectedError } = require('../../middlewares/custom-exception');
 
 class PostsRepository {
-  constructor(PostsModel) {
-    this.postsModel = PostsModel;
+  constructor(postsModel, likesModel) {
+    this.postsModel = postsModel;
+    this.likesModel = likesModel;
   }
   createPost = async (userId, title, content, coverImageFile) => {
     const createPost = await this.postsModel.create({
@@ -23,6 +24,8 @@ class PostsRepository {
   findDetailPost = async (postId) => {
     const post = await this.postsModel.findOne({
       where: { postId },
+      include: { model: this.likesModel },
+      required: true,
     });
     if (!post) {
       throw new UnexpectedError('없는 게시글입니다.', 404);
