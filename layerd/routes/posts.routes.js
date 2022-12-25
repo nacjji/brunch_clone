@@ -9,4 +9,5 @@ router.get('/', postController.findAllPosts);
 router.get('/:postId', postController.findDetailPost);
 router.put('/:postId', upload.single('image'), postController.updatePost);
 router.delete('/:postId', postController.deletePost);
+router.get('/restore/:postId', postController.restorePost);
 module.exports = router;

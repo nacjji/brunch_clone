@@ -28,10 +28,21 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
+      deletedAt: { type: DataTypes.DATE },
     },
     {
+      timestamps: true,
       sequelize,
       modelName: 'Posts',
+      paranoid: true,
     },
   );
   return Posts;

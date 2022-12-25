@@ -27,6 +27,10 @@ class PostsService {
   deletePost = async (postId) => {
     await this.postRepository.deletePost(postId);
   };
+
+  restorePost = async (postId) => {
+    await this.postRepository.restorePost(postId);
+  };
 }
 
 module.exports = PostsService;
