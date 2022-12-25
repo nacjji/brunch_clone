@@ -7,6 +7,11 @@ class PostsController {
     // const { userId } = res.locals.user;
     const userId = 1;
     const coverImageFile = req.file.location;
+    console.log(
+      '🚀 ~ file: posts.controller.js:10 ~ PostsController ~ createPost= ~ coverImageFile',
+      req.file,
+    );
+    console.log(coverImageFile);
     const { title, content } = req.body;
     try {
       await this.postsService.createPost(
@@ -17,6 +22,7 @@ class PostsController {
       );
       return res.status(201).json({ message: '생성완료' });
     } catch (error) {
+      console.log(error);
       res.status(error).json({ message: error.message });
     }
   };
@@ -26,6 +32,7 @@ class PostsController {
       const posts = await this.postsService.findAllPosts();
       return res.status(200).json({ result: posts });
     } catch (error) {
+      console.log(error);
       res.status(error.status).json({ error: error.message });
     }
   };
@@ -36,6 +43,7 @@ class PostsController {
       const post = await this.postsService.findDetailPost(postId);
       return res.status(200).json({ result: post });
     } catch (error) {
+      console.log(error);
       res.status(error.status).json({ error: error.message });
     }
   };
@@ -66,6 +74,18 @@ class PostsController {
       await this.postsService.deletePost(postId);
       return res.status(201).json({ result: '게시글 삭제 완료' });
     } catch (error) {
+      return res.status(error.status).json({ error: error.message });
+    }
+  };
+
+  restorePost = async (req, res) => {
+    const { postId } = req.params;
+
+    try {
+      await this.postsService.restorePost(postId);
+      return res.status(201).json({ result: '게시글 복구 완료' });
+    } catch (error) {
+      console.log(error);
       return res.status(error.status).json({ error: error.message });
     }
   };

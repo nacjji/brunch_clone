@@ -16,12 +16,14 @@ class PostsRepository {
 
   // 전체 게시글 조회
   findAllPosts = async () => {
-    await this.postsModel.findAll();
+    return await this.postsModel.findAll({ paranoid: false });
   };
 
   // 게시글 상세조회
   findDetailPost = async (postId) => {
-    const post = await this.postsModel.findOne({ where: { postId } });
+    const post = await this.postsModel.findOne({
+      where: { postId },
+    });
     if (!post) {
       throw new UnexpectedError('없는 게시글입니다.', 404);
     }
@@ -44,11 +46,27 @@ class PostsRepository {
   };
 
   deletePost = async (postId) => {
-    const post = await this.postsModel.destroy({ where: { postId } });
+    const post = await this.postsModel.destroy({
+      where: { postId },
+    });
     if (!post) {
       throw new UnexpectedError('없는 게시글입니다.', 404);
     }
     return post;
+  };
+
+  // 삭제 복구
+  restorePost = async (postId, deletedAt) => {
+    const restore = await this.postsModel.restore({ where: { postId } });
+    const isDeleted = await this.postsModel.findOne({
+      where: { deletedAt: null },
+    });
+    console.log(isDeleted.deletedAt);
+
+    if (isDeleted.deletedAt) {
+      throw new UnexpectedError('삭제되지 않은 게시글입니다.', 400);
+    }
+    return restore;
   };
 }
 module.exports = PostsRepository;
