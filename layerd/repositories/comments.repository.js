@@ -1,6 +1,7 @@
 class CommentsRepository {
-  constructor(CommentModel) {
+  constructor(CommentModel, PostModel) {
     this.commentModel = CommentModel;
+    this.postModel = PostModel;
   }
 
   findComment = async (commentId) => {
@@ -9,6 +10,14 @@ class CommentsRepository {
     });
 
     return findCommentData;
+  };
+
+  findPost = async (postId) => {
+    const postData = await this.postModel.findOne({
+      where: { postId },
+    });
+
+    return postData;
   };
 
   createComment = async (postId, content, userId) => {

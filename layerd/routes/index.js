@@ -5,6 +5,9 @@ const router = express.Router();
 const postRouter = require('./posts.routes');
 router.use('/post', postRouter);
 
+const userRouter = require('./users.routes');
+router.use('/user', userRouter);
+
 const commentsRouter = require('./comments.routes');
 router.use('/comment', commentsRouter);
 

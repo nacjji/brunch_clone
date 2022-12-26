@@ -17,8 +17,8 @@ class CommentsController {
     } catch (error) {
       console.log(error);
       res
-        .status(400)
-        .json({ result: 'false', errorMessage: '댓글 작성에 실패하였습니다.' });
+        .status(error.code)
+        .json({result: error.result, errorMessage: error.message });
     }
   };
 
