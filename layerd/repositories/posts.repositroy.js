@@ -1,4 +1,3 @@
-const { Sequelize } = require('sequelize');
 const { UnexpectedError } = require('../../middlewares/custom-exception');
 
 class PostsRepository {
@@ -30,8 +29,6 @@ class PostsRepository {
       where: { postId },
       raw: true,
     });
-
-    console.log(post);
     if (!post) {
       throw new UnexpectedError('없는 게시글입니다.', 404);
     }
