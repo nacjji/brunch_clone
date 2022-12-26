@@ -1,11 +1,16 @@
 const CommentsRepository = require('../repositories/comments.repository');
 
-const { Comments } = require('../../models');
+const { Comments, Posts } = require('../../models');
 const { AsyncQueueError } = require('sequelize');
 class CommentsService {
-  commentsRepository = new CommentsRepository(Comments);
+  commentsRepository = new CommentsRepository(Comments, Posts);
 
   createComment = async (postId, content, userId) => {
+    const postData = await this.commentsRepository.findPost(postId)
+
+    if (!postData) {
+      throw { message: '없는 게시물입니다.', result: 'false', code: 404 };
+    }
     await this.commentsRepository.createComment(postId, content, userId);
   };
 
