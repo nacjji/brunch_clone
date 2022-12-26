@@ -5,7 +5,7 @@ class PostsController {
   postsService = new PostsService();
   createPost = async (req, res) => {
     // const { userId } = res.locals.user;
-    const userId = 1;
+    const { userId } = res.locals;
     const coverImageFile = req.file.location;
 
     const { title, content } = req.body;

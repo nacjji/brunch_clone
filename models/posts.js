@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.hasMany(models.Likes, { foreignKey: 'postId' });
       this.hasMany(models.Comments, { foreignKey: 'postId' });
-      this.belongsTo(models.KakaoUsers, { foreignKey: 'userId' });
+      this.belongsTo(models.Users, { foreignKey: 'userId' });
     }
   }
   Posts.init(

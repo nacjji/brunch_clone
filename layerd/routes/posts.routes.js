@@ -3,11 +3,17 @@ const router = express.Router();
 const PostsController = require('../controllers/posts.controller');
 const postController = new PostsController();
 const upload = require('../../middlewares/s3PostMiddleware');
+const auth = require('../../middlewares/auth');
 
-router.post('/', upload.single('image'), postController.createPost);
+router.post(
+  '/',
+  auth.isLoggedIn,
+  upload.single('image'),
+  postController.createPost,
+);
 router.get('/', postController.findAllPosts);
 router.get('/:postId', postController.findDetailPost);
 router.put('/:postId', upload.single('image'), postController.updatePost);
-router.delete('/:postId', postController.deletePost);
-router.get('/restore/:postId', postController.restorePost);
+router.delete('/:postId', auth.isLoggedIn, postController.deletePost);
+router.get('/restore/:postId', auth.isLoggedIn, postController.restorePost);
 module.exports = router;
