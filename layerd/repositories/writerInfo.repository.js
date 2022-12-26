@@ -1,9 +1,10 @@
 class UserInfoRepository {
-  constructor(usersModel) {
+  constructor(usersModel, followModel) {
     this.usersModel = usersModel;
+    this.followModel = followModel;
   }
 
-  userInfo = async (userId) => {
+  writerInfo = async (userId) => {
     return await this.usersModel.findOne({
       where: { userId },
       attributes: { exclude: ['password', 'accessToken'] },

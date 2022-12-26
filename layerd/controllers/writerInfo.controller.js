@@ -1,13 +1,13 @@
-const UserInfoService = require('../../layerd/services/userInfo.service');
+const UserInfoService = require('../services/writerInfo.service');
 
 class UserInfoController {
   userInfoService = new UserInfoService();
 
-  userInfo = async (req, res) => {
+  writerInfo = async (req, res) => {
     const { userId } = res.locals;
     try {
-      const userInfo = await this.userInfoService.userInfo(userId);
-      return res.status(200).json({ result: userInfo });
+      const writerInfo = await this.userInfoService.writerInfo(userId);
+      return res.status(200).json({ result: writerInfo });
     } catch (error) {
       console.log(error);
       return res.status(error.status).json({ message: error.message });

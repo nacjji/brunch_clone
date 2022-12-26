@@ -17,7 +17,7 @@ router.use('/like', likeRouter);
 const followRouter = require('./follow.routes');
 router.use('/follow', followRouter);
 
-const userInfo = require('./userInfo.routes');
-router.use('/userInfo', userInfo);
+const writerInfo = require('./writerInfo.routes');
+router.use('/writer-info', writerInfo);
 
 module.exports = router;
