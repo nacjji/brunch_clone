@@ -9,14 +9,33 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      snsId: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       email: {
         type: Sequelize.STRING,
-      },
-      nickname: {
-        type: Sequelize.STRING,
+        allowNull: false,
       },
       password: {
         type: Sequelize.STRING,
+        allowNull: false,
+      },
+      writer: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      profileImage: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      selfIntro: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      accessToken: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,

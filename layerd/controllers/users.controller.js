@@ -13,12 +13,12 @@ class UsersController {
 
   register = async (req, res, next) => {
     try {
-      const { email, nickname, password } = await registerSchema.validateAsync(
+      const { email, writer, password } = await registerSchema.validateAsync(
         req.body,
       );
       await this.usersService.register({
         email,
-        nickname,
+        writer,
         password,
       });
       res.status(201).json({ msg: '회원가입 성공' });
