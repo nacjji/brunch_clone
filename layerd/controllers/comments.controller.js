@@ -6,9 +6,8 @@ class CommentsController {
   createComment = async (req, res, next) => {
     const { postId } = req.params;
     const { content } = req.body;
-    //const { userId } = res.locals.user;
+    const userId = res.locals.userId;
 
-    let userId = 1;
     try {
       await this.commentsService.createComment(postId, content, userId);
       res
@@ -18,16 +17,15 @@ class CommentsController {
       console.log(error);
       res
         .status(error.code)
-        .json({result: error.result, errorMessage: error.message });
+        .json({ result: error.result, errorMessage: error.message });
     }
   };
 
   updateComment = async (req, res, next) => {
     const { commentId } = req.params;
     const { content } = req.body;
-    // const { userId } = res.locals.user;
+    const userId = res.locals.userId;
 
-    let userId = 1;
     try {
       await this.commentsService.updateComment(commentId, content, userId);
       res
@@ -48,10 +46,9 @@ class CommentsController {
   };
 
   deleteComment = async (req, res, next) => {
-    const { commentId } = req.params;
-    // const { userId } = res.locals.user;
+    const { commentId } = req.params; 
+    const userId = res.locals.userId;
 
-    let userId = 2;
     try {
       await this.commentsService.deleteComment(commentId, userId);
       res
