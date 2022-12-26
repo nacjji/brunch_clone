@@ -11,18 +11,17 @@ class UsersSevice {
   }
   usersRepository = new UsersRepository(Users);
 
-  register = async ({ email, nickname, password }) => {
+  register = async ({ email, writer, password }) => {
     const existEmail = await this.usersRepository.findUserByemail({ email });
     if (existEmail) throw new UnexpectedError('ID ALREADY EXISTS', 401);
 
-    const existNickname = await this.usersRepository.findUserByNickname({
-      nickname,
+    const existWriter = await this.usersRepository.findUserByNickname({
+      writer,
     });
-    if (existNickname)
-      throw new UnexpectedError('NICKNAME ALREADY EXISTS', 401);
+    if (existWriter) throw new UnexpectedError('NICKNAME ALREADY EXISTS', 401);
 
     const hashedPW = await this.bcrypt.hash(password, parseInt(PASSWORD_SALT));
-    await this.usersRepository.createUser({ email, nickname, hashedPW });
+    await this.usersRepository.createUser({ email, writer, hashedPW });
   };
 
   login = async ({ email, password }) => {
@@ -35,9 +34,9 @@ class UsersSevice {
       expiresIn: '12h',
     });
     const userId = user.userId;
-    const nickname = user.nickname;
+    const writer = user.writer;
 
-    return { accessToken, userId, nickname };
+    return { accessToken, userId, writer };
   };
 }
 

@@ -23,9 +23,42 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      email: DataTypes.STRING,
-      nickname: DataTypes.STRING,
-      password: DataTypes.STRING,
+      snsId: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      writer: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      profileImage: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      selfIntro: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      accessToken: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
     },
     {
       sequelize,
