@@ -1,9 +1,10 @@
 const { UnexpectedError } = require('../../middlewares/custom-exception');
 
 class PostsRepository {
-  constructor(postsModel, likesModel) {
+  constructor(postsModel, likesModel, commentModel) {
     this.postsModel = postsModel;
     this.likesModel = likesModel;
+    this.commentModel = commentModel;
   }
   createPost = async (userId, title, content, coverImageFile) => {
     const createPost = await this.postsModel.create({
@@ -21,10 +22,12 @@ class PostsRepository {
   };
 
   // 게시글 상세조회
+  // 댓글 userId에 해당하는 닉네임, 내용만 가져오기
+  // 좋아요 개수만 가져오기
   findDetailPost = async (postId) => {
     const post = await this.postsModel.findOne({
       where: { postId },
-      include: { model: this.likesModel },
+      include: [{ model: this.likesModel }, { model: this.commentModel }],
       required: true,
     });
     if (!post) {

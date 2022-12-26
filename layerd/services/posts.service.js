@@ -1,9 +1,9 @@
 const PostsRepository = require('../../layerd/repositories/posts.repositroy');
-const { Posts } = require('../../models');
-const { Likes } = require('../../models');
+const { Posts, Likes, Comments } = require('../../models');
+
 class PostsService {
   constructor() {
-    this.postRepository = new PostsRepository(Posts, Likes);
+    this.postRepository = new PostsRepository(Posts, Likes, Comments);
   }
   createPost = async (userId, title, content, coverImageFile) =>
     await this.postRepository.createPost(
