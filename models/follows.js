@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.Users, { foreignKey: 'userId' });
+      this.hasMany(models.Users, { foreignKey: 'userId' });
     }
   }
   Follows.init(
@@ -20,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
       },
       userId: DataTypes.INTEGER,
+      followingUserId: DataTypes.INTEGER,
     },
     {
       sequelize,
