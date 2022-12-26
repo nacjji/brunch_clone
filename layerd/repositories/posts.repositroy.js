@@ -27,9 +27,11 @@ class PostsRepository {
   // 좋아요 개수만 가져오기
   findDetailPost = async (postId) => {
     const post = await this.postsModel.findOne({
+      where: { postId },
       include: [
         {
           model: this.likesModel,
+          as: 'Likes',
           attributes: [
             [
               Sequelize.fn('COUNT', Sequelize.col('Likes.likeId')),
@@ -39,6 +41,7 @@ class PostsRepository {
         },
         {
           model: this.commentModel,
+          as: 'Comments',
           attributes: [
             [
               Sequelize.fn('COUNT', Sequelize.col('Comments.commentId')),
@@ -47,9 +50,10 @@ class PostsRepository {
           ],
         },
       ],
-      where: { postId },
     });
-    if (!post) {
+
+    //
+    if (!post.dataValues.postId) {
       throw new UnexpectedError('없는 게시글입니다.', 404);
     }
     return post;
