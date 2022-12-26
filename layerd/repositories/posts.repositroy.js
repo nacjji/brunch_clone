@@ -1,3 +1,4 @@
+const { Sequelize } = require('sequelize');
 const { UnexpectedError } = require('../../middlewares/custom-exception');
 
 class PostsRepository {
@@ -26,9 +27,27 @@ class PostsRepository {
   // 좋아요 개수만 가져오기
   findDetailPost = async (postId) => {
     const post = await this.postsModel.findOne({
+      include: [
+        {
+          model: this.likesModel,
+          attributes: [
+            [
+              Sequelize.fn('COUNT', Sequelize.col('Likes.likeId')),
+              'LikesCount',
+            ],
+          ],
+        },
+        {
+          model: this.commentModel,
+          attributes: [
+            [
+              Sequelize.fn('COUNT', Sequelize.col('Comments.commentId')),
+              'CommentsCount',
+            ],
+          ],
+        },
+      ],
       where: { postId },
-      include: [{ model: this.likesModel }, { model: this.commentModel }],
-      required: true,
     });
     if (!post) {
       throw new UnexpectedError('없는 게시글입니다.', 404);
