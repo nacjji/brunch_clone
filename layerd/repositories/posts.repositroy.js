@@ -28,34 +28,12 @@ class PostsRepository {
   findDetailPost = async (postId) => {
     const post = await this.postsModel.findOne({
       where: { postId },
-      include: [
-        {
-          model: this.likesModel,
-          as: 'Likes',
-          attributes: [
-            [
-              Sequelize.fn('COUNT', Sequelize.col('Likes.likeId')),
-              'LikesCount',
-            ],
-          ],
-        },
-        {
-          model: this.commentModel,
-          as: 'Comments',
-          attributes: [
-            [
-              Sequelize.fn('COUNT', Sequelize.col('Comments.commentId')),
-              'CommentsCount',
-            ],
-          ],
-        },
-      ],
+      raw: true,
     });
+    // if (!post.dataValues.postId) {
+    //   throw new UnexpectedError('없는 게시글입니다.', 404);
+    // }
 
-    //
-    if (!post.dataValues.postId) {
-      throw new UnexpectedError('없는 게시글입니다.', 404);
-    }
     return post;
   };
 
