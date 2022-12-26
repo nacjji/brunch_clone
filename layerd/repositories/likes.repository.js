@@ -1,5 +1,5 @@
 const { UnexpectedError } = require('../../middlewares/custom-exception');
-
+const Sequelize = require('sequelize');
 class LikesRepository {
   constructor(likesModel, postModel) {
     this.likesModel = likesModel;
@@ -15,7 +15,7 @@ class LikesRepository {
       throw new UnexpectedError('없는 게시글입니다.', 404);
     }
     if (isLike.length) {
-      await this.likesModel.destroy({ where: { postId } });
+      await this.likesModel.destroy({ where: { postId, userId } });
       return { message: '좋아요 취소' };
     }
     await this.likesModel.create({ postId, userId });
@@ -24,6 +24,17 @@ class LikesRepository {
 
   // 좋아요한 게시글 조회, 게시글의 내용이 아닌 postId와 userId 만 가져온다.
   likedPost = async () => await this.likesModel.findAll({});
+
+  likeCount = async (postId) => {
+    const count = await this.likesModel.findAll({
+      where: { postId },
+      attributes: [
+        [Sequelize.fn('COUNT', Sequelize.col('likeId')), 'LikesCount'],
+      ],
+      raw: true,
+    });
+    return count[0];
+  };
 }
 
 module.exports = LikesRepository;

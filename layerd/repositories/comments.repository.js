@@ -1,3 +1,5 @@
+const Sequelize = require('sequelize');
+
 class CommentsRepository {
   constructor(CommentModel, PostModel) {
     this.commentModel = CommentModel;
@@ -45,6 +47,17 @@ class CommentsRepository {
     });
 
     return deleteComment;
+  };
+
+  commentCount = async (postId) => {
+    const count = await this.commentModel.findAll({
+      where: { postId },
+      attributes: [
+        [Sequelize.fn('COUNT', Sequelize.col('commentId')), 'CommentsCount'],
+      ],
+      raw: true,
+    });
+    return count[0];
   };
 }
 

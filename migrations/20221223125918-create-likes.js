@@ -11,9 +11,11 @@ module.exports = {
       },
       postId: {
         type: Sequelize.INTEGER,
+        references: { model: 'Posts', key: 'postId' },
       },
       userId: {
         type: Sequelize.INTEGER,
+        references: { model: 'Users', key: 'userId' },
       },
       createdAt: {
         allowNull: false,
