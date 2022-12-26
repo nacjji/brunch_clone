@@ -1,19 +1,19 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Followers extends Model {
+  class Follows extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.KakaoUsers, { foreignKey: 'userId' });
+      this.belongsTo(models.Users, { foreignKey: 'userId' });
     }
   }
-  Followers.init(
+  Follows.init(
     {
-      followerId: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -23,8 +23,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'Followers',
+      modelName: 'Follows',
     },
   );
-  return Followers;
+  return Follows;
 };
