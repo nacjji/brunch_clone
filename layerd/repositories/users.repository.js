@@ -4,8 +4,8 @@ class UsersRepository {
     this.usersModel = UsersModel;
   }
 
-  createUser = async ({ email, nickname, hashedPW }) => {
-    await this.usersModel.create({ email, nickname, password: hashedPW });
+  createUser = async ({ email, writer, hashedPW }) => {
+    await this.usersModel.create({ email, writer, password: hashedPW });
   };
 
   findUserByemail = async ({ email }) => {
@@ -13,8 +13,8 @@ class UsersRepository {
     return userEmail;
   };
 
-  findUserByNickname = async ({ nickname }) => {
-    const userNickname = await this.usersModel.findOne({ where: { nickname } });
+  findUserByNickname = async ({ writer }) => {
+    const userNickname = await this.usersModel.findOne({ where: { writer } });
     return userNickname;
   };
 }
