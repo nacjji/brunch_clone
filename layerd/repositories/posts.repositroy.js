@@ -30,9 +30,11 @@ class PostsRepository {
       where: { postId },
       raw: true,
     });
-    // if (!post.dataValues.postId) {
-    //   throw new UnexpectedError('없는 게시글입니다.', 404);
-    // }
+
+    console.log(post);
+    if (!post) {
+      throw new UnexpectedError('없는 게시글입니다.', 404);
+    }
 
     return post;
   };
