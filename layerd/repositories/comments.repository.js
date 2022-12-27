@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const { Users } = require('../../models');
 
 class CommentsRepository {
   constructor(CommentModel, PostModel) {
@@ -12,6 +13,19 @@ class CommentsRepository {
     });
 
     return findCommentData;
+  };
+
+  findComments = async (postId) => {
+    const findComments = await this.commentModel.findAll({
+      where: { postId },
+      include: {
+        model: Users,
+        attributes: ['profileImage'],
+      },
+      raw: true,
+    });
+    console.log(findComments);
+    return findComments;
   };
 
   findPost = async (postId) => {
