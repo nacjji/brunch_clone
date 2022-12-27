@@ -26,7 +26,9 @@ class PostsController {
 
   findAllPosts = async (req, res) => {
     try {
-      const posts = await this.postsService.findAllPosts();
+      const { p } = req.query;
+
+      const posts = await this.postsService.findAllPosts(p);
       return res.status(200).json({ result: posts });
     } catch (error) {
       console.log(error);

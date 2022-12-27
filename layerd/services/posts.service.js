@@ -21,7 +21,7 @@ class PostsService {
       coverImageFile,
     );
 
-  findAllPosts = async () => await this.postRepository.findAllPosts();
+  findAllPosts = async (p) => await this.postRepository.findAllPosts(p);
 
   findDetailPost = async (postId, userId) => {
     const detailPost = await this.postRepository.findDetailPost(postId);
