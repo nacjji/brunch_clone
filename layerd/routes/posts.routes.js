@@ -12,6 +12,7 @@ router.post(
   postController.createPost,
 );
 router.get('/', postController.findAllPosts);
+router.get('/my-post', auth.isLoggedIn, postController.myFindDetailPosts);
 router.get('/:postId', postController.findDetailPost);
 router.put('/:postId', upload.single('image'), postController.updatePost);
 router.delete('/:postId', auth.isLoggedIn, postController.deletePost);

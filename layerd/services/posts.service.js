@@ -21,7 +21,7 @@ class PostsService {
       coverImageFile,
     );
 
-  findAllPosts = async () => await this.postRepository.findAllPosts();
+  findAllPosts = async (p) => await this.postRepository.findAllPosts(p);
 
   findDetailPost = async (postId, userId) => {
     const detailPost = await this.postRepository.findDetailPost(postId);
@@ -30,14 +30,23 @@ class PostsService {
     const getWriterName = await this.userInfoRepository.writerInfo(
       detailPost.userId,
     );
+    const comments = await this.commentRepository.findComments(postId);
 
     const result = {
       ...detailPost,
       ...likeCount,
       ...commentCount,
       ...getWriterName,
+      comment: comments,
     };
     return result;
+  };
+
+  //내가 쓴 글 보기
+  myFindDetailPosts = async (userId) => {
+    const posts = await this.postRepository.myFindDetailPosts(userId);
+
+    return posts;
   };
 
   updatePost = async (postId, title, content, coverImageFile) =>

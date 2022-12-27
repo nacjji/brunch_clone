@@ -26,7 +26,9 @@ class PostsController {
 
   findAllPosts = async (req, res) => {
     try {
-      const posts = await this.postsService.findAllPosts();
+      const { p } = req.query;
+
+      const posts = await this.postsService.findAllPosts(p);
       return res.status(200).json({ result: posts });
     } catch (error) {
       console.log(error);
@@ -39,6 +41,18 @@ class PostsController {
     try {
       const post = await this.postsService.findDetailPost(postId);
       return res.status(200).json({ result: post });
+    } catch (error) {
+      console.log(error);
+      res.status(error.status).json({ error: error.message });
+    }
+  };
+
+  myFindDetailPosts = async (req, res) => {
+    const { userId } = res.locals;
+
+    try {
+      const posts = await this.postsService.myFindDetailPosts(userId);
+      return res.status(200).json({ result: posts });
     } catch (error) {
       console.log(error);
       res.status(error.status).json({ error: error.message });
