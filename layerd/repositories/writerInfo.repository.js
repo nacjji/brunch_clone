@@ -7,6 +7,7 @@ class UserInfoRepository {
   writerInfo = async (userId) => {
     return await this.usersModel.findOne({
       where: { userId },
+      raw: true,
       attributes: { exclude: ['password', 'accessToken'] },
     });
   };
