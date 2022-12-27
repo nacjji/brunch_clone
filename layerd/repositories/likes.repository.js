@@ -32,6 +32,7 @@ class LikesRepository {
       ],
       raw: true,
     });
+    //
     return count[0];
   };
 }
