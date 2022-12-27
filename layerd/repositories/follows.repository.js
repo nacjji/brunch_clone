@@ -1,15 +1,28 @@
 const { Sequelize } = require('../../models');
-
+const { UnexpectedError } = require('../../middlewares/custom-exception');
+const { Users } = require('../../models');
 class FollowRepository {
-  constructor(followsModel) {
+  constructor(followsModel, usersModel) {
     this.followsModel = followsModel;
+    this.usersModel = usersModel;
   }
 
   followUser = async (userId, interestUser) => {
+    if (userId === interestUser) {
+      throw new UnexpectedError('나를 팔로우할 수 없습니다.', 400);
+    }
+    const existUser = await Users.findOne({
+      where: { userId: interestUser },
+      raw: true,
+    });
+    if (!existUser) {
+      throw new UnexpectedError('존재하지 않는 사용자', 400);
+    }
     const isfollowed = await this.followsModel.findAll({
       where: { userId },
       raw: true,
     });
+    console.log(isfollowed);
     for (const i of isfollowed) {
       if (i.interestUser === interestUser) {
         await this.followsModel.destroy({ where: { userId, interestUser } });

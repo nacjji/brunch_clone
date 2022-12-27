@@ -8,18 +8,19 @@ class PostsController {
     const { userId } = res.locals;
     const coverImageFile = req.file.location;
 
-    const { title, content } = req.body;
+    const { title, subtitle, content } = req.body;
     try {
       await this.postsService.createPost(
         userId,
         title,
+        subtitle,
         content,
         coverImageFile,
       );
       return res.status(201).json({ message: '생성완료' });
     } catch (error) {
       console.log(error);
-      res.status(error).json({ message: error.message });
+      res.status(error.status).json({ error: error.message });
     }
   };
 
