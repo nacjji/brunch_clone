@@ -38,6 +38,38 @@ class UsersController {
       next(err);
     }
   };
+
+  updateUser = async (req, res) => {
+    try {
+      const { userId } = res.locals;
+      const { snsId, email, writer, selfIntro } = req.body;
+
+      if (req.file) {
+        const profileImageFile = req.file.location;
+        await this.usersService.updateUser(
+          userId,
+          snsId,
+          email,
+          writer,
+          profileImageFile,
+          selfIntro,
+        );
+      } else {
+        await this.usersService.updateUser(
+          userId,
+          snsId,
+          email,
+          writer,
+          selfIntro,
+        );
+      }
+
+      return res.status(201).json({ result: '회원 수정 완료' });
+    } catch (error) {
+      console.log(error);
+      return res.status(error.status).json({ error: error.message });
+    }
+  };
 }
 
 module.exports = UsersController;
