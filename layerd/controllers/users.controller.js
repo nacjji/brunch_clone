@@ -22,8 +22,11 @@ class UsersController {
         password,
       });
       res.status(201).json({ msg: '회원가입 성공' });
-    } catch (err) {
-      next(err);
+    } catch (error) {
+      logger.error(
+        `status code :, ${error.status}, error message : ${error.massage}`,
+      );
+      next(error);
     }
   };
 
@@ -33,9 +36,11 @@ class UsersController {
       const accessToken = await this.usersService.login({ email, password });
 
       res.status(200).json(accessToken);
-    } catch (err) {
-      console.log(err);
-      next(err);
+    } catch (error) {
+      logger.error(
+        `status code :, ${error.status}, error message : ${error.massage}`,
+      );
+      next(error);
     }
   };
 
@@ -63,10 +68,11 @@ class UsersController {
           selfIntro,
         );
       }
-
       return res.status(201).json({ result: '회원 수정 완료' });
     } catch (error) {
-      console.log(error);
+      logger.error(
+        `status code :, ${error.status}, error message : ${error.massage}`,
+      );
       return res.status(error.status).json({ error: error.message });
     }
   };
