@@ -57,6 +57,7 @@ class CommentsRepository {
       ],
       raw: true,
     });
+
     return count[0];
   };
 }

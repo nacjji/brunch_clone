@@ -14,7 +14,10 @@ router.use('/comment', commentsRouter);
 const likeRouter = require('./like.route');
 router.use('/like', likeRouter);
 
-const followRouter = require('./userInfo.routes');
-router.use('/userInfo', followRouter);
+const followRouter = require('./follow.routes');
+router.use('/follow', followRouter);
+
+const writerInfo = require('./writerInfo.routes');
+router.use('/writer-info', writerInfo);
 
 module.exports = router;
