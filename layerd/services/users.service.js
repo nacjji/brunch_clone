@@ -42,6 +42,27 @@ class UsersSevice {
 
     return { accessToken, userId, writer };
   };
+
+  updateUser = async (
+    userId,
+    snsId,
+    email,
+    writer,
+    profileImageFile,
+    selfIntro,
+  ) => {
+    console.log(snsId);
+    const updateUser = await this.usersRepository.updateUser(
+      userId,
+      snsId,
+      email,
+      writer,
+      profileImageFile,
+      selfIntro,
+    );
+
+    return updateUser;
+  };
 }
 
 module.exports = UsersSevice;

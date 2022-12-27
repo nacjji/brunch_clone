@@ -6,10 +6,11 @@ class PostsRepository {
     this.likesModel = likesModel;
     this.commentModel = commentModel;
   }
-  createPost = async (userId, title, content, coverImageFile) => {
+  createPost = async (userId, title, subtitle, content, coverImageFile) => {
     const createPost = await this.postsModel.create({
       userId,
       title,
+      subtitle,
       content,
       coverImage: coverImageFile,
     });
@@ -36,7 +37,7 @@ class PostsRepository {
     return post;
   };
 
-  updatePost = async (postId, title, content, coverImageFile) => {
+  updatePost = async (postId, title, subtitle, content, coverImageFile) => {
     const findPostForUpdate = await this.postsModel.findOne({
       where: { postId },
     });
@@ -45,7 +46,7 @@ class PostsRepository {
     }
 
     const post = await this.postsModel.update(
-      { title, content, coverImage: coverImageFile },
+      { title, subtitle, content, coverImage: coverImageFile },
       { where: { postId } },
     );
     return post;
