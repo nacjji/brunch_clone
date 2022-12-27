@@ -25,11 +25,11 @@ class FollowRepository {
     for (const i of isfollowed) {
       if (i.interestUser === interestUser) {
         await this.followsModel.destroy({ where: { userId, interestUser } });
-        return { message: '팔로우 취소' };
+        return { message: '구독 취소' };
       }
     }
     await this.followsModel.create({ userId, interestUser });
-    return { message: '팔로우' };
+    return { message: '구독' };
   };
 
   interestUser = async (userId) => {
