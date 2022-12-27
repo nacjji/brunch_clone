@@ -11,7 +11,6 @@ class LikesRepository {
 
     const isLike = await this.likesModel.findAll({ where: { postId, userId } });
     if (!existPost) {
-      console.log(2);
       throw new UnexpectedError('없는 게시글입니다.', 404);
     }
     if (isLike.length) {
