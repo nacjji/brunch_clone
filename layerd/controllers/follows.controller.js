@@ -9,11 +9,8 @@ class FollowController {
     const { userId } = res.locals;
 
     //팔로우 할 사람 2
-    const { followingUserId } = req.params;
-    const following = await this.followService.followUser(
-      userId,
-      followingUserId,
-    );
+    const { interestUser } = req.params;
+    const following = await this.followService.followUser(userId, interestUser);
     return res.status(201).json({ message: following.message });
   };
 }

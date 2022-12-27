@@ -4,6 +4,6 @@ const FollowController = require('../controllers/follows.controller');
 const followController = new FollowController();
 const auth = require('../../middlewares/auth');
 
-router.post('/:followingUserId', auth.isLoggedIn, followController.followUser);
+router.post('/:interestUser', auth.isLoggedIn, followController.followUser);
 
 module.exports = router;

@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
       },
       userId: DataTypes.INTEGER,
-      followingUserId: DataTypes.INTEGER,
+      interestUser: DataTypes.INTEGER,
     },
     {
       sequelize,

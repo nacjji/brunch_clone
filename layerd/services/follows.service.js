@@ -5,8 +5,8 @@ class FollowService {
     this.followRepository = new FollowRepository(Follows);
   }
 
-  followUser = async (userId, followingUserId) => {
-    return await this.followRepository.followUser(userId, followingUserId);
+  followUser = async (userId, interestUser) => {
+    return await this.followRepository.followUser(userId, interestUser);
   };
 }
 

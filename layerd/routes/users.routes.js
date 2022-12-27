@@ -6,5 +6,6 @@ const auth = require('../../middlewares/auth');
 
 router.post('/register', auth.isNotLoggedIn, usersController.register);
 router.post('/login', auth.isNotLoggedIn, usersController.login);
+router.get('/writer-info', auth.isLoggedIn, usersController.mypage);
 
 module.exports = router;
