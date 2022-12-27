@@ -40,6 +40,13 @@ class PostsService {
     return result;
   };
 
+  //내가 쓴 글 보기
+  myFindDetailPosts = async (userId) => {
+    const posts = await this.postRepository.myFindDetailPosts(userId);
+
+    return posts;
+  };
+
   updatePost = async (postId, title, content, coverImageFile) =>
     await this.postRepository.updatePost(
       postId,

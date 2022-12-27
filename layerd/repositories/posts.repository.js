@@ -37,6 +37,12 @@ class PostsRepository {
     return post;
   };
 
+  //내가 쓴 글 보기
+  myFindDetailPosts = async (userId) => {
+    const posts = await this.postsModel.findAll({ where: { userId } });
+    return posts;
+  };
+
   updatePost = async (postId, title, subtitle, content, coverImageFile) => {
     const findPostForUpdate = await this.postsModel.findOne({
       where: { postId },

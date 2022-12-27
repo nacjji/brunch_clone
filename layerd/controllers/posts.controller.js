@@ -45,6 +45,18 @@ class PostsController {
     }
   };
 
+  myFindDetailPosts = async (req, res) => {
+    const { userId } = res.locals;
+
+    try {
+      const posts = await this.postsService.myFindDetailPosts(userId);
+      return res.status(200).json({ result: posts });
+    } catch (error) {
+      console.log(error);
+      res.status(error.status).json({ error: error.message });
+    }
+  };
+
   updatePost = async (req, res) => {
     const { postId } = req.params;
     const { title, content } = req.body;
