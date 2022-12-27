@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { UnexpectedError } = require('../../middlewares/custom-exception');
 
 class PostsRepository {
@@ -18,9 +19,27 @@ class PostsRepository {
   };
 
   // 전체 게시글 조회
-  findAllPosts = async () => {
-    return await this.postsModel.findAll({ paranoid: false });
+  // findAllPosts = async () => {
+  //   return await this.postsModel.findAll({ paranoid: false });
+  // };
+
+  findAllPosts = async (p) => {
+    const where = {};
+
+    if (parseInt(p, 10)) {
+      where.postId = { [Op.lt]: parseInt(p, 10) };
+    }
+    const allPosts = await this.postsModel.findAll({
+      where,
+      limit: 20,
+      order: [['createdAt', 'DESC']],
+    });
+    console.log(allPosts.length);
+    return allPosts;
   };
+  // localhost:3000/api/post?p=1 1~20
+  // localhost:3000/api/post?postId=2 21~40
+  //            ...
 
   // 게시글 상세조회
   // 댓글 userId에 해당하는 닉네임, 내용만 가져오기
@@ -75,7 +94,9 @@ class PostsRepository {
       where: { deletedAt: null },
     });
     console.log(isDeleted.deletedAt);
-
+    if (!restore) {
+      throw new UnexpectedError('없는 게시글입니다.', 400);
+    }
     if (isDeleted.deletedAt) {
       throw new UnexpectedError('삭제되지 않은 게시글입니다.', 400);
     }
