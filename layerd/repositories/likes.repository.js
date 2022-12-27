@@ -15,10 +15,10 @@ class LikesRepository {
     }
     if (isLike.length) {
       await this.likesModel.destroy({ where: { postId, userId } });
-      return { message: '좋아요 취소' };
+      return { message: 'dislike' };
     }
     await this.likesModel.create({ postId, userId });
-    return { message: '좋아요' };
+    return { message: 'like' };
   };
 
   // 좋아요한 게시글 조회, 게시글의 내용이 아닌 postId와 userId 만 가져온다.
