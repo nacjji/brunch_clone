@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       userId: DataTypes.INTEGER,
       title: DataTypes.STRING,
+      subtitle: DataTypes.STRING,
       content: DataTypes.STRING,
       coverImage: {
         type: DataTypes.STRING,

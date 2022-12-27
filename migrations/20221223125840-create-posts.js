@@ -20,6 +20,9 @@ module.exports = {
       title: {
         type: Sequelize.STRING,
       },
+      subtitle: {
+        type: Sequelize.STRING,
+      },
       content: {
         type: Sequelize.STRING,
       },
