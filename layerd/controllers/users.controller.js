@@ -1,6 +1,8 @@
 const UsersSevice = require('../services/users.service');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const logger = require('../../config/loggers');
+
 const {
   registerSchema,
   loginSchema,

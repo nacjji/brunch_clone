@@ -1,4 +1,5 @@
 const UserInfoService = require('../services/writerInfo.service');
+const logger = require('../../config/loggers');
 
 class UserInfoController {
   userInfoService = new UserInfoService();
