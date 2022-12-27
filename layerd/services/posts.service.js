@@ -30,12 +30,14 @@ class PostsService {
     const getWriterName = await this.userInfoRepository.writerInfo(
       detailPost.userId,
     );
+    const comments = await this.commentRepository.findComments(postId);
 
     const result = {
       ...detailPost,
       ...likeCount,
       ...commentCount,
       ...getWriterName,
+      comment: comments,
     };
     return result;
   };
