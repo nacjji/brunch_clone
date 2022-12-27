@@ -1,5 +1,5 @@
-const logger = require('../../config/loggers');
 const CommentsService = require('../services/comments.service');
+const logger = require('../../config/loggers');
 
 class CommentsController {
   commentsService = new CommentsService();
