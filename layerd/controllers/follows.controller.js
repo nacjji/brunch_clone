@@ -20,7 +20,9 @@ class FollowController {
       );
       return res.status(201).json({ message: following.message });
     } catch (error) {
-      console.log(error);
+      logger.error(
+        `status code :, ${error.status}, error message : ${error.massage}`,
+      );
       return res.status(error.status).json({ error: error.message });
     }
   };

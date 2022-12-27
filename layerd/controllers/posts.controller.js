@@ -4,7 +4,6 @@ const PostsService = require('../../layerd/services/posts.service');
 class PostsController {
   postsService = new PostsService();
   createPost = async (req, res) => {
-    // const { userId } = res.locals.user;
     const { userId } = res.locals;
     const coverImageFile = req.file.location;
 
@@ -19,7 +18,9 @@ class PostsController {
       );
       return res.status(201).json({ message: '생성완료' });
     } catch (error) {
-      console.log(error);
+      logger.error(
+        `status code :, ${error.status}, error message : ${error.massage}`,
+      );
       res.status(error.status).json({ error: error.message });
     }
   };
@@ -31,7 +32,9 @@ class PostsController {
       const posts = await this.postsService.findAllPosts(p);
       return res.status(200).json({ result: posts });
     } catch (error) {
-      console.log(error);
+      logger.error(
+        `status code :, ${error.status}, error message : ${error.massage}`,
+      );
       res.status(error.status).json({ error: error.message });
     }
   };
@@ -42,7 +45,9 @@ class PostsController {
       const post = await this.postsService.findDetailPost(postId);
       return res.status(200).json({ result: post });
     } catch (error) {
-      console.log(error);
+      logger.error(
+        `status code :, ${error.status}, error message : ${error.massage}`,
+      );
       res.status(error.status).json({ error: error.message });
     }
   };
@@ -54,7 +59,9 @@ class PostsController {
       const posts = await this.postsService.myFindDetailPosts(userId);
       return res.status(200).json({ result: posts });
     } catch (error) {
-      console.log(error);
+      logger.error(
+        `status code :, ${error.status}, error message : ${error.massage}`,
+      );
       res.status(error.status).json({ error: error.message });
     }
   };
@@ -75,6 +82,9 @@ class PostsController {
       await this.postsService.updatePost(postId, title, content);
       return res.status(201).json({ result: '게시글 수정 완료' });
     } catch (error) {
+      logger.error(
+        `status code :, ${error.status}, error message : ${error.massage}`,
+      );
       return res.status(error.status).json({ error: error.message });
     }
   };
@@ -85,6 +95,9 @@ class PostsController {
       await this.postsService.deletePost(postId);
       return res.status(201).json({ result: '게시글 삭제 완료' });
     } catch (error) {
+      logger.error(
+        `status code :, ${error.status}, error message : ${error.massage}`,
+      );
       return res.status(error.status).json({ error: error.message });
     }
   };
@@ -96,7 +109,9 @@ class PostsController {
       await this.postsService.restorePost(postId);
       return res.status(201).json({ result: '게시글 복구 완료' });
     } catch (error) {
-      console.log(error);
+      logger.error(
+        `status code :, ${error.status}, error message : ${error.massage}`,
+      );
       return res.status(error.status).json({ error: error.message });
     }
   };

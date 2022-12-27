@@ -13,13 +13,22 @@ class LikesController {
 
       return res.status(201).json({ message: likey.message });
     } catch (error) {
-      console.log(error);
+      logger.error(
+        `status code :, ${error.status}, error message : ${error.massage}`,
+      );
       return res.status(error.status).json({ message: error.message });
     }
   };
   likedPost = async (req, res) => {
-    const likedPost = await this.likesService.likedPost();
-    return res.status(200).json({ result: likedPost });
+    try {
+      const likedPost = await this.likesService.likedPost();
+      return res.status(200).json({ result: likedPost });
+    } catch (error) {
+      logger.error(
+        `status code :, ${error.status}, error message : ${error.massage}`,
+      );
+      return res.status(error.status).json({ message: error.message });
+    }
   };
 }
 
