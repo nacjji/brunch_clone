@@ -19,10 +19,6 @@ class PostsRepository {
   };
 
   // 전체 게시글 조회
-  // findAllPosts = async () => {
-  //   return await this.postsModel.findAll({ paranoid: false });
-  // };
-
   findAllPosts = async (p) => {
     const where = {};
 
@@ -34,16 +30,35 @@ class PostsRepository {
       limit: 20,
       order: [['createdAt', 'DESC']],
     });
-    console.log(allPosts.length);
     return allPosts;
   };
-  // localhost:3000/api/post?p=1 1~20
-  // localhost:3000/api/post?postId=2 21~40
-  //            ...
+
+  //게시글 검색
+  searchPost = async (search) => {
+    console.log(search);
+    const posts = await this.postsModel.findAll({
+      raw: true,
+      attribute: ['title', 'subtitle', 'content'],
+      where: {
+        [Op.or]: [
+          {
+            title: { [Op.like]: '%' + search + '%' },
+          },
+          {
+            subtitle: { [Op.like]: '%' + search + '%' },
+          },
+          {
+            content: { [Op.like]: '%' + search + '%' },
+          },
+        ],
+      },
+    });
+    console.log(posts);
+
+    return posts;
+  };
 
   // 게시글 상세조회
-  // 댓글 userId에 해당하는 닉네임, 내용만 가져오기
-  // 좋아요 개수만 가져오기
   findDetailPost = async (postId) => {
     const post = await this.postsModel.findOne({
       where: { postId },

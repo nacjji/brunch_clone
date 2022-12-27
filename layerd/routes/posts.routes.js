@@ -12,9 +12,15 @@ router.post(
   postController.createPost,
 );
 router.get('/', postController.findAllPosts);
+router.get('/', postController.searchPost);
 router.get('/my-post', auth.isLoggedIn, postController.myFindDetailPosts);
 router.get('/:postId', postController.findDetailPost);
-router.put('/:postId', upload.single('image'), postController.updatePost);
+router.put(
+  '/:postId',
+  auth.isLoggedIn,
+  upload.single('image'),
+  postController.updatePost,
+);
 router.delete('/:postId', auth.isLoggedIn, postController.deletePost);
 router.get('/restore/:postId', auth.isLoggedIn, postController.restorePost);
 module.exports = router;

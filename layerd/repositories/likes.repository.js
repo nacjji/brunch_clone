@@ -21,9 +21,6 @@ class LikesRepository {
     return { message: 'like' };
   };
 
-  // 좋아요한 게시글 조회, 게시글의 내용이 아닌 postId와 userId 만 가져온다.
-  likedPost = async () => await this.likesModel.findAll({});
-
   likeCount = async (postId) => {
     const count = await this.likesModel.findAll({
       where: { postId },
