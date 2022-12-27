@@ -9,7 +9,9 @@ class UserInfoController {
       const writerInfo = await this.userInfoService.writerInfo(userId);
       return res.status(200).json({ result: writerInfo });
     } catch (error) {
-      console.log(error);
+      logger.error(
+        `status code :, ${error.status}, error message : ${error.massage}`,
+      );
       return res.status(error.status).json({ message: error.message });
     }
   };
