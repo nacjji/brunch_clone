@@ -22,15 +22,12 @@ class FollowRepository {
       where: { userId },
       raw: true,
     });
-    console.log(isfollowed);
     for (const i of isfollowed) {
       if (i.interestUser === interestUser) {
         await this.followsModel.destroy({ where: { userId, interestUser } });
         return { message: '팔로우 취소' };
       }
     }
-    console.log(interestUser);
-
     await this.followsModel.create({ userId, interestUser });
     return { message: '팔로우' };
   };

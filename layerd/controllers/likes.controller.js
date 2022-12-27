@@ -14,20 +14,8 @@ class LikesController {
 
       return res.status(201).json({ message: likey.message });
     } catch (error) {
-      logger.error(
-        `status code :, ${error.status}, error message : ${error.massage}`,
-      );
-      return res.status(error.status).json({ message: error.message });
-    }
-  };
-  likedPost = async (req, res) => {
-    try {
-      const likedPost = await this.likesService.likedPost();
-      return res.status(200).json({ result: likedPost });
-    } catch (error) {
-      logger.error(
-        `status code :, ${error.status}, error message : ${error.massage}`,
-      );
+      logger.error(`status code :, ${error.status}, error message : ${error}`);
+
       return res.status(error.status).json({ message: error.message });
     }
   };

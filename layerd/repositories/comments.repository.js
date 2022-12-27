@@ -20,8 +20,9 @@ class CommentsRepository {
       where: { postId },
       include: {
         model: Users,
-        attributes: ['profileImage'],
+        attributes: ['profileImage', 'writer'],
       },
+      order: [['createdAt', 'DESC']],
       raw: true,
     });
     console.log(findComments);

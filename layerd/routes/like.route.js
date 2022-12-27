@@ -5,5 +5,4 @@ const likesController = new LikesController();
 const auth = require('../../middlewares/auth');
 
 router.put('/:postId', auth.isLoggedIn, likesController.likePost);
-router.get('/', likesController.likedPost);
 module.exports = router;

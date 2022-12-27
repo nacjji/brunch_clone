@@ -23,6 +23,8 @@ class PostsService {
 
   findAllPosts = async (p) => await this.postRepository.findAllPosts(p);
 
+  searchPost = async (search) => await this.postRepository.searchPost(search);
+
   findDetailPost = async (postId, userId) => {
     const detailPost = await this.postRepository.findDetailPost(postId);
     const likeCount = await this.likesRepository.likeCount(postId);
@@ -49,10 +51,11 @@ class PostsService {
     return posts;
   };
 
-  updatePost = async (postId, title, content, coverImageFile) =>
+  updatePost = async (postId, title, subtitle, content, coverImageFile) =>
     await this.postRepository.updatePost(
       postId,
       title,
+      subtitle,
       content,
       coverImageFile,
     );

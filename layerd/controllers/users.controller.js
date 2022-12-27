@@ -25,9 +25,7 @@ class UsersController {
       });
       res.status(201).json({ msg: '회원가입 성공' });
     } catch (error) {
-      logger.error(
-        `status code :, ${error.status}, error message : ${error.massage}`,
-      );
+      logger.error(`status code :, ${error.status}, error message : ${error}`);
       next(error);
     }
   };
@@ -39,9 +37,7 @@ class UsersController {
 
       res.status(200).json(accessToken);
     } catch (error) {
-      logger.error(
-        `status code :, ${error.status}, error message : ${error.massage}`,
-      );
+      logger.error(`status code :, ${error.status}, error message : ${error}`);
       next(error);
     }
   };
@@ -72,9 +68,7 @@ class UsersController {
       }
       return res.status(201).json({ result: '회원 수정 완료' });
     } catch (error) {
-      logger.error(
-        `status code :, ${error.status}, error message : ${error.massage}`,
-      );
+      logger.error(`status code :, ${error.status}, error message : ${error}`);
       return res.status(error.status).json({ error: error.message });
     }
   };

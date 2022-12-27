@@ -15,9 +15,7 @@ class CommentsController {
         .status(201)
         .json({ result: 'true', message: '댓글 작성에 성공하였습니다.' });
     } catch (error) {
-      logger.error(
-        `status code :, ${error.status}, error message : ${error.massage}`,
-      );
+      logger.error(`status code :, ${error.status}, error message : ${error}`);
       res
         .status(error.code)
         .json({ result: error.result, errorMessage: error.message });
@@ -35,9 +33,8 @@ class CommentsController {
         .status(201)
         .json({ result: 'true', message: '댓글 수정에 성공하였습니다.' });
     } catch (error) {
-      logger.error(
-        `status code :, ${error.status}, error message : ${error.massage}`,
-      );
+      logger.error(`status code :, ${error.status}, error message : ${error}`);
+
       if (error.code) {
         return res
           .status(error.code)
@@ -61,9 +58,8 @@ class CommentsController {
         .status(201)
         .json({ result: 'false', message: '댓글 삭제에 성공하였습니다.' });
     } catch (error) {
-      logger.error(
-        `status code :, ${error.status}, error message : ${error.massage}`,
-      );
+      logger.error(`status code :, ${error.status}, error message : ${error}`);
+
       if (error.code) {
         return res
           .status(error.code)
