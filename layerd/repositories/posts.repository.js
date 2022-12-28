@@ -25,12 +25,17 @@ class PostsRepository {
     if (parseInt(p, 10)) {
       where.postId = { [Op.lt]: parseInt(p, 10) };
     }
+    const posts = await this.postsModel.findAll({ raw: true });
+    const lastPost = posts[0].postId;
+
     const allPosts = await this.postsModel.findAll({
       where,
       limit: 20,
       order: [['createdAt', 'DESC']],
+      raw: true,
     });
-    return allPosts;
+
+    return [allPosts, lastPost];
   };
 
   //게시글 검색
