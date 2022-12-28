@@ -47,7 +47,6 @@ class UsersSevice {
     profileImageFile,
     selfIntro,
   ) => {
-    console.log(snsId);
     const updateUser = await this.usersRepository.updateUser(
       userId,
       snsId,

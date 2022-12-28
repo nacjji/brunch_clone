@@ -56,7 +56,3 @@ class FollowRepository {
 }
 
 module.exports = FollowRepository;
-
-// 프론트에서 1차적으로 막는 부분도 에러처리를 해야하는지
-// ex) 게시글에 댓글을 작성할 때 params로 받아오는 값이 postId인데
-// 어차피 프론트에서 없는 글에 댓글을 못달게 할텐데 이걸 에러처리를 해야하나

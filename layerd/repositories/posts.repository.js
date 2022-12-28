@@ -35,7 +35,6 @@ class PostsRepository {
 
   //게시글 검색
   searchPost = async (search) => {
-    console.log(search);
     const posts = await this.postsModel.findAll({
       raw: true,
       attribute: ['title', 'subtitle', 'content'],
@@ -53,8 +52,6 @@ class PostsRepository {
         ],
       },
     });
-    console.log(posts);
-
     return posts;
   };
 
@@ -108,7 +105,6 @@ class PostsRepository {
     const isDeleted = await this.postsModel.findOne({
       where: { deletedAt: null },
     });
-    console.log(isDeleted.deletedAt);
     if (!restore) {
       throw new UnexpectedError('없는 게시글입니다.', 400);
     }
