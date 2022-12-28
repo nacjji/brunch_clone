@@ -2,7 +2,8 @@ const PostsRepository = require('../repositories/posts.repository');
 const CommentsRepository = require('../../layerd/repositories/comments.repository');
 const LikesRepository = require('../../layerd/repositories/likes.repository');
 const UserInfoRepository = require('../../layerd/repositories/writerInfo.repository');
-const { Posts, Likes, Comments, Users, Follow } = require('../../models');
+const UsersRepository = require('../../layerd/repositories/users.repository');
+const { Posts, Likes, Comments, Users } = require('../../models');
 const { UnexpectedError } = require('../../middlewares/custom-exception');
 
 class PostsService {
@@ -11,6 +12,7 @@ class PostsService {
     this.likesRepository = new LikesRepository(Likes, Posts);
     this.commentRepository = new CommentsRepository(Comments, Posts);
     this.userInfoRepository = new UserInfoRepository(Users);
+    this.usersRepository = new UsersRepository(Users);
   }
 
   createPost = async (
@@ -40,7 +42,13 @@ class PostsService {
     }
   };
 
-  findAllPosts = async (p) => await this.postRepository.findAllPosts(p);
+  findAllPosts = async (p) => {
+    const posts = await this.postRepository.findAllPosts(p);
+    // const postWriter = await this.usersRepository.postwriter();
+
+    const result = { ...posts };
+    return result;
+  };
 
   searchPost = async (search) => await this.postRepository.searchPost(search);
 

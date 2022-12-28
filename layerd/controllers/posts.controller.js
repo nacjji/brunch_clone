@@ -26,14 +26,12 @@ class PostsController {
     }
   };
 
-  fileFilter = (req, file, cb) => {};
-
   findAllPosts = async (req, res, next) => {
     if (Object.keys(req.query)[0] === 'search') return next();
     try {
       const { p } = req.query;
       const posts = await this.postsService.findAllPosts(p);
-      console.log(posts[0]);
+
       return res
         .status(200)
         .json({ result: posts[0], lastPost: posts[posts.length - 1] });

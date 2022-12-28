@@ -1,8 +1,8 @@
 const { Op, Sequelize } = require('sequelize');
 class UsersRepository {
-  constructor(UsersModel, FollowsModel) {
-    this.usersModel = UsersModel;
-    this.followsModel = FollowsModel;
+  constructor(usersModel, followsModel) {
+    this.usersModel = usersModel;
+    this.followsModel = followsModel;
   }
 
   createUser = async ({ email, writer, hashedPW }) => {
@@ -45,6 +45,13 @@ class UsersRepository {
       },
     );
     return updateUser;
+  };
+
+  postwriter = async () => {
+    const postWriter = await this.usersModel.findAll({
+      raw: true,
+    });
+    return postWriter;
   };
 }
 module.exports = UsersRepository;

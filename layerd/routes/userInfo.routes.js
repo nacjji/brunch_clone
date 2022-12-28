@@ -1,17 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const UsersController = require('../controllers/users.controller');
-const usersController = new UsersController();
+const FollowController = require('../controllers/follows.controller');
+const followController = new FollowController();
 const auth = require('../../middlewares/auth');
-const upload = require('../../middlewares/s3PostMiddleware');
 
-router.post('/register', auth.isNotLoggedIn, usersController.register);
-router.post('/login', auth.isNotLoggedIn, usersController.login);
-router.put(
-  '/update',
-  auth.isLoggedIn,
-  upload.single('image'),
-  usersController.updateUser,
-);
+router.post('/:interestUser', auth.isLoggedIn, followController.followUser);
 
 module.exports = router;
