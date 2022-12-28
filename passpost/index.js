@@ -1,5 +1,5 @@
 const passport = require('passport');
-const kakaoStrategy = require('passport-kakao').Strategy;
+const kakao = require('./kakaoStrategy');
 const Users = require('../models/users');
 
 module.exports = () => {
@@ -15,16 +15,3 @@ module.exports = () => {
 
   kakao();
 };
-
-passport.use(
-  new kakaoStrategy(
-    {
-      clientID: process.env.KAKAO_ID,
-      callbackURL: '/auth/kakao/callback',
-    },
-    async (accessToken, refreshToken, profile, done) => {
-      console.log(accessToken);
-      console.log(profile);
-    },
-  ),
-);

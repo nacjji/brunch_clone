@@ -1,12 +1,24 @@
 const express = require('express');
+const session = require('express-session');
 const dotenv = require('dotenv');
 dotenv.config();
 const router = require('./layerd/routes/index');
 const app = express();
 const helmet = require('helmet');
-
+const passport = require('passport');
+const passports = require('./passpost/index');
 const logger = require('./config/loggers');
 const cors = require('cors');
+
+app.use(
+  session({
+    secret: 'SECRET',
+    resave: true,
+    saveUninitialized: true,
+  }),
+);
+app.use(passport.initialize());
+passports(passport);
 
 app.use(cors({ origin: '*', credentials: true }));
 
