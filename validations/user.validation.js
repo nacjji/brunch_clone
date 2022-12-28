@@ -9,6 +9,7 @@ exports.registerSchema = Joi.object().keys({
       'string.pattern.base': 'WRONG EMAIL PATTEN',
       'any.required': 'NO EMAIL INPUT',
     }),
+
   writer: Joi.string()
     .pattern(new RegExp('^[a-zA-Z0-9가-힣]{2,15}$'))
     .required()

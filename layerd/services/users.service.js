@@ -15,13 +15,13 @@ class UsersSevice {
 
   register = async ({ email, writer, password }) => {
     const existEmail = await this.usersRepository.findUserByemail({ email });
-    if (existEmail) throw new UnexpectedError('이메일이 이미 존재합니다.', 401);
+    if (existEmail) throw new UnexpectedError('이메일이 이미 존재합니다.', 400);
 
     const existWriter = await this.usersRepository.findUserByNickname({
       writer,
     });
     if (existWriter)
-      throw new UnexpectedError('닉네임이 이미 존재합니다.', 401);
+      throw new UnexpectedError('닉네임이 이미 존재합니다.', 400);
 
     const hashedPW = await this.bcrypt.hash(password, parseInt(PASSWORD_SALT));
     await this.usersRepository.createUser({ email, writer, hashedPW });
