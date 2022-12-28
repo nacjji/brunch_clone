@@ -29,9 +29,10 @@ module.exports = () => {
           } else {
             // 가입되지 않는 유저면 회원가입 시키고 로그인을 시킨다
             const newUser = await Users.create({
-              email: profile._json && profile._json.kakao_account_email,
-              writer: profile.displayname,
+              email: profile._json.kakao_account.email,
+              writer: profile.displayName,
               snsId: profile.id,
+              profileImage: profile._json.properties.profile_image,
             });
 
             done(null, newUser); // 회원가입하고 로그인 인증 완료
@@ -40,8 +41,6 @@ module.exports = () => {
           console.error(error);
           done(error);
         }
-
-        console.log(accessToken);
       },
     ),
   );
