@@ -1,11 +1,12 @@
 const { Op } = require('sequelize');
 const { UnexpectedError } = require('../../middlewares/custom-exception');
-
+const { Users, Sequelize } = require('../../models/');
 class PostsRepository {
-  constructor(postsModel, likesModel, commentModel) {
+  constructor(postsModel, likesModel, commentModel, userModel) {
     this.postsModel = postsModel;
     this.likesModel = likesModel;
     this.commentModel = commentModel;
+    this.userModel = userModel;
   }
   createPost = async (userId, title, subtitle, content, coverImageFile) => {
     const createPost = await this.postsModel.create({
@@ -25,14 +26,30 @@ class PostsRepository {
     if (parseInt(p, 10)) {
       where.postId = { [Op.lt]: parseInt(p, 10) };
     }
-    const posts = await this.postsModel.findAll({ raw: true });
+    const posts = await this.postsModel.findAll({
+      raw: true,
+    });
+
     const lastPost = posts[0].postId;
 
     const allPosts = await this.postsModel.findAll({
+      include: [{ model: Users, attributes: [] }],
+      attributes: [
+        'postId',
+        'userId',
+        'title',
+        'subtitle',
+        'content',
+        'coverImage',
+        'createdAt',
+        'updatedAt',
+        'deletedAt',
+        [Sequelize.col('writer'), 'writer'],
+      ],
       where,
       limit: 20,
-      order: [['createdAt', 'DESC']],
       raw: true,
+      order: [['createdAt', 'DESC']],
     });
 
     return [allPosts, lastPost];
@@ -41,8 +58,20 @@ class PostsRepository {
   //게시글 검색
   searchPost = async (search) => {
     const posts = await this.postsModel.findAll({
+      include: [{ model: Users, attributes: [] }],
+      attributes: [
+        'postId',
+        'userId',
+        'title',
+        'subtitle',
+        'content',
+        'coverImage',
+        'createdAt',
+        'updatedAt',
+        'deletedAt',
+        [Sequelize.col('writer'), 'writer'],
+      ],
       raw: true,
-      attribute: ['title', 'subtitle', 'content'],
       where: {
         [Op.or]: [
           {

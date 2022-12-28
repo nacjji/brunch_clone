@@ -18,10 +18,18 @@ class CommentsRepository {
   findComments = async (postId) => {
     const findComments = await this.commentModel.findAll({
       where: { postId },
-      include: {
-        model: Users,
-        attributes: ['profileImage', 'writer'],
-      },
+      attributes: [
+        'commentId',
+        'postId',
+        'userId',
+        'content',
+        'createdAt',
+        'updatedAt',
+        [Sequelize.col('profileImage'), 'profileImage'],
+        [Sequelize.col('writer'), 'writer'],
+      ],
+      include: { model: Users, attributes: [] },
+
       order: [['createdAt', 'DESC']],
       raw: true,
     });
