@@ -31,7 +31,6 @@ class PostsRepository {
     });
 
     const lastPost = posts[0].postId;
-
     const allPosts = await this.postsModel.findAll({
       include: [{ model: Users, attributes: [] }],
       attributes: [
