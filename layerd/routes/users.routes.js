@@ -7,5 +7,11 @@ const upload = require('../../middlewares/s3PostMiddleware');
 
 router.post('/register', auth.isNotLoggedIn, usersController.register);
 router.post('/login', auth.isNotLoggedIn, usersController.login);
+router.put(
+  '/update',
+  auth.isLoggedIn,
+  upload.single('image'),
+  usersController.updateUser,
+);
 
 module.exports = router;
