@@ -40,6 +40,7 @@
     - 관심작가 추가
     - 구독자 조회
 ## ERD
+![스크린샷 2022-12-28 오후 5 03 05](https://user-images.githubusercontent.com/105340187/209779370-38ecbdd6-e56b-4bb7-8f2c-3b2289769b77.png)
 
 
 
