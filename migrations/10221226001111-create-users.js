@@ -15,15 +15,15 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       writer: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       profileImage: {
         type: Sequelize.STRING,

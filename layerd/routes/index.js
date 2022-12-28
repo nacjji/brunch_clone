@@ -20,4 +20,7 @@ router.use('/follow', followRouter);
 const writerInfo = require('./writerInfo.routes');
 router.use('/writer-info', writerInfo);
 
+const authRouter = require('./auth.routes');
+router.use('/auth', authRouter);
+
 module.exports = router;

@@ -1,6 +1,4 @@
-const { Sequelize } = require('../../models');
-const { UnexpectedError } = require('../../middlewares/custom-exception');
-const { Users } = require('../../models');
+const { Sequelize } = require('sequelize');
 class FollowRepository {
   constructor(followsModel, usersModel) {
     this.followsModel = followsModel;

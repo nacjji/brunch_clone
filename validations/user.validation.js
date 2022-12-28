@@ -10,7 +10,7 @@ exports.registerSchema = Joi.object().keys({
       'any.required': 'NO EMAIL INPUT',
     }),
   writer: Joi.string()
-    .pattern(new RegExp('^[a-zA-Z0-9각-힣]{2,15}$'))
+    .pattern(new RegExp('^[a-zA-Z0-9가-힣]{2,15}$'))
     .required()
     .min(2)
     .max(15)
@@ -20,7 +20,7 @@ exports.registerSchema = Joi.object().keys({
       'string.max': 'NICKNAME ABOVE STRING LENGTH 15',
       'any.required': 'NO NICKNAME INPUT',
     }),
-  password: Joi.string().min(4).max(20).required().messages({
+  password: Joi.string().min(4).max(20).messages({
     'string.empty': 'NO PW INPUT',
     'string.min': 'PW BELOW STRING LENGTH 4',
     'string.max': 'PW ABOVE STRING LENGTH 20',

@@ -29,15 +29,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       email: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       writer: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       profileImage: {
         type: DataTypes.STRING,
