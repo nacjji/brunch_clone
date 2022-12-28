@@ -1,17 +1,17 @@
-const { Users } = require('../../models');
-const passport = require('passport');
-const KakaoStrategy = require('passport-kakao').Strategy;
+// const { Users } = require('../../models');
+// const passport = require('passport');
+// const KakaoStrategy = require('passport-kakao').Strategy;
 
-class SocialLoginController {
-  login = async (req, res, next) => {
-    const { accessToken, profile, done } = passport.authenticate(
-      new KakaoStrategy(),
-    );
-    console.log(accessToken);
-  };
-}
+// class SocialLoginController {
+//   login = async (req, res, next) => {
+//     const { accessToken, profile, done } = passport.authenticate(
+//       new KakaoStrategy(),
+//     );
+//     console.log(accessToken);
+//   };
+// }
 
-module.exports = SocialLoginController;
+// module.exports = SocialLoginController;
 
 // try {
 //     const exUser = await Users.findOne({

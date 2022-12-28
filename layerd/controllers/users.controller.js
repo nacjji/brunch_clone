@@ -26,7 +26,7 @@ class UsersController {
       res.status(201).json({ msg: '회원가입 성공' });
     } catch (error) {
       logger.error(`status code :, ${error.status}, error message : ${error}`);
-      next(error);
+      return res.status(error.status).json({ error: error.message });
     }
   };
 
@@ -38,7 +38,7 @@ class UsersController {
       res.status(200).json(accessToken);
     } catch (error) {
       logger.error(`status code :, ${error.status}, error message : ${error}`);
-      next(error);
+      return res.status(error.status).json({ error: error.message });
     }
   };
 
