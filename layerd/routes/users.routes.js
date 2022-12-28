@@ -5,8 +5,8 @@ const usersController = new UsersController();
 const auth = require('../../middlewares/auth');
 const upload = require('../../middlewares/s3PostMiddleware');
 
-router.post('/register', auth.isNotLoggedIn, usersController.register);
-router.post('/login', auth.isNotLoggedIn, usersController.login);
+router.post('/register', usersController.register);
+router.post('/login', usersController.login);
 router.put(
   '/update',
   auth.isLoggedIn,
