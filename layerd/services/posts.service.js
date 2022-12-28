@@ -3,6 +3,7 @@ const CommentsRepository = require('../../layerd/repositories/comments.repositor
 const LikesRepository = require('../../layerd/repositories/likes.repository');
 const UserInfoRepository = require('../../layerd/repositories/writerInfo.repository');
 const { Posts, Likes, Comments, Users, Follow } = require('../../models');
+const { UnexpectedError } = require('../../middlewares/custom-exception');
 
 class PostsService {
   constructor() {
@@ -12,14 +13,32 @@ class PostsService {
     this.userInfoRepository = new UserInfoRepository(Users);
   }
 
-  createPost = async (userId, title, subtitle, content, coverImageFile) =>
-    await this.postRepository.createPost(
-      userId,
-      title,
-      subtitle,
-      content,
-      coverImageFile,
-    );
+  createPost = async (
+    userId,
+    title,
+    subtitle,
+    content,
+    coverImageFile,
+    fileType,
+  ) => {
+    if (
+      fileType === 'jpg' ||
+      fileType === 'png' ||
+      fileType === 'jpeg' ||
+      fileType === 'gif' ||
+      fileType === 'webp'
+    ) {
+      await this.postRepository.createPost(
+        userId,
+        title,
+        subtitle,
+        content,
+        coverImageFile,
+      );
+    } else {
+      throw new UnexpectedError('jpg,png,jpeg,gif,webp만 가능합니다', 400);
+    }
+  };
 
   findAllPosts = async (p) => await this.postRepository.findAllPosts(p);
 

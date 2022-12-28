@@ -8,6 +8,8 @@ class PostsController {
     const { userId } = res.locals;
     const coverImageFile = req.file.location;
     const { title, subtitle, content } = req.body;
+    const typeArray = req.file.mimetype.split('/');
+    const fileType = typeArray[1];
     try {
       await this.postsService.createPost(
         userId,
@@ -15,7 +17,9 @@ class PostsController {
         subtitle,
         content,
         coverImageFile,
+        fileType,
       );
+
       return res.status(201).json({ message: '생성완료' });
     } catch (error) {
       logger.error(`status code :, ${error.status}, error message : ${error}`);
@@ -23,8 +27,9 @@ class PostsController {
     }
   };
 
+  fileFilter = (req, file, cb) => {};
+
   findAllPosts = async (req, res, next) => {
-    console.log(Object.keys(req.query));
     if (Object.keys(req.query)[0] === 'search') return next();
     try {
       const { p } = req.query;
@@ -39,7 +44,6 @@ class PostsController {
 
   // 게시글 검색
   searchPost = async (req, res) => {
-    console.log(1);
     try {
       const { search } = req.query;
 

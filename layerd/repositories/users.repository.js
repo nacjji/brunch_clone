@@ -26,7 +26,6 @@ class UsersRepository {
     profileImageFile,
     selfIntro,
   ) => {
-    console.log(userId, 11);
     const updateUser = await this.usersModel.update(
       { snsId, email, writer, profileImage: profileImageFile, selfIntro },
       {

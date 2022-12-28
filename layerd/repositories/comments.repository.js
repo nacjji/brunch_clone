@@ -25,7 +25,6 @@ class CommentsRepository {
       order: [['createdAt', 'DESC']],
       raw: true,
     });
-    console.log(findComments);
     return findComments;
   };
 
