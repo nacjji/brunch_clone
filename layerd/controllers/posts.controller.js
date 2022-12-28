@@ -19,6 +19,7 @@ class PostsController {
         coverImageFile,
         fileType,
       );
+
       return res.status(201).json({ message: '생성완료' });
     } catch (error) {
       logger.error(`status code :, ${error.status}, error message : ${error}`);
@@ -31,10 +32,8 @@ class PostsController {
     try {
       const { p } = req.query;
       const posts = await this.postsService.findAllPosts(p);
-
-      return res
-        .status(200)
-        .json({ result: posts[0], lastPost: posts[posts.length - 1] });
+      console.log(posts[1]);
+      return res.status(200).json({ result: posts[0], lastPost: posts[1] });
     } catch (error) {
       console.log(error);
       logger.error(`status code :, ${error.status}, error message : ${error}`);

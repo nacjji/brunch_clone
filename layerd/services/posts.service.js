@@ -44,7 +44,6 @@ class PostsService {
 
   findAllPosts = async (p) => {
     const posts = await this.postRepository.findAllPosts(p);
-    // const postWriter = await this.usersRepository.postwriter();
 
     const result = { ...posts };
     return result;
@@ -52,7 +51,7 @@ class PostsService {
 
   searchPost = async (search) => await this.postRepository.searchPost(search);
 
-  findDetailPost = async (postId, userId) => {
+  findDetailPost = async (postId) => {
     const detailPost = await this.postRepository.findDetailPost(postId);
     const likeCount = await this.likesRepository.likeCount(postId);
     const commentCount = await this.commentRepository.commentCount(postId);
