@@ -32,7 +32,6 @@ class PostsController {
     try {
       const { p } = req.query;
       const posts = await this.postsService.findAllPosts(p);
-      console.log(posts[1]);
       return res.status(200).json({ result: posts[0], lastPost: posts[1] });
     } catch (error) {
       console.log(error);

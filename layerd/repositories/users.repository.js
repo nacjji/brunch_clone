@@ -37,14 +37,37 @@ class UsersRepository {
     profileImageFile,
     selfIntro,
   ) => {
-    const updateUser = await this.usersModel.update(
-      { snsId, email, writer, profileImage: profileImageFile, selfIntro },
-      {
-        where: { userId },
-        raw: true,
-      },
-    );
-    return updateUser;
+    const getProfileImage = await this.usersModel.findOne({
+      where: { userId },
+      raw: true,
+    });
+    getProfileImage.profileImage;
+
+    if (profileImageFile) {
+      const updateUser = await this.usersModel.update(
+        { snsId, email, writer, profileImage: profileImageFile, selfIntro },
+        {
+          where: { userId },
+          raw: true,
+        },
+      );
+      return updateUser;
+    } else {
+      const updateUser = await this.usersModel.update(
+        {
+          snsId,
+          email,
+          writer,
+          profileImage: getProfileImage.profileImage,
+          selfIntro,
+        },
+        {
+          where: { userId },
+          raw: true,
+        },
+      );
+      return updateUser;
+    }
   };
 
   postwriter = async () => {
