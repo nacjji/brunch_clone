@@ -45,3 +45,12 @@
 
 
 ## Trouble Shooting
+
+
+-  config 에서 timezone 을 설정했음에도 시간이 반영되지 않음
+  - 프론트에서 9시간을 더하는 로직을 추가하여 반영함
+-  sequelize include, attribute 사용 시 데이터가 원하는 형태로 join 되지 않음 (writer:"작가") 형태를 원했으나 (User.writer:"작가")형태로 join 됨
+    - attribute 로 원하는 데이터 필드 하나하나 넣어 줘서 attribute로 join 했다. 
+- 회원 수정 시 프로필 사진을 수정하지 않고 자기소개 등을 수정할 때 수정이 반영되지 않는 현상
+    - 처음 null 을 넣어주고 수정하니 자기소개는 정상적으로 수정이 되었으나 이미 있는 프로필 사진이 null 로 변경되는 문제 발생
+    - Users 모델에서 프로필 사진을 찾아와, 프로필 사진 변경 없이 수정하는 조건 분기에 넣어주니 해결
