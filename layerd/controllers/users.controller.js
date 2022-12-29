@@ -58,13 +58,14 @@ class UsersController {
           selfIntro,
         );
       } else {
-        await this.usersService.updateUser(
+        await this.usersService.updateUser({
           userId,
           snsId,
           email,
           writer,
+          profileImageFile: null,
           selfIntro,
-        );
+        });
       }
       return res.status(201).json({ result: '회원 수정 완료' });
     } catch (error) {
