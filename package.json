@@ -19,6 +19,7 @@
   "homepage": "https://github.com/nacjji/brunch_clone#readme",
   "dependencies": {
     "aws-sdk": "^2.1281.0",
+    "axios": "^1.2.2",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
