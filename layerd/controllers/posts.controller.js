@@ -6,21 +6,32 @@ class PostsController {
 
   createPost = async (req, res) => {
     const { userId } = res.locals;
-    const coverImageFile = req.file.location;
     const { title, subtitle, content } = req.body;
-    const typeArray = req.file.mimetype.split('/');
-    const fileType = typeArray[1];
     try {
-      await this.postsService.createPost(
-        userId,
-        title,
-        subtitle,
-        content,
-        coverImageFile,
-        fileType,
-      );
-
-      return res.status(201).json({ message: '생성완료' });
+      if (req.file) {
+        const coverImageFile = req.file.location;
+        const typeArray = req.file.mimetype.split('/');
+        const fileType = typeArray[1];
+        await this.postsService.createPost(
+          userId,
+          title,
+          subtitle,
+          content,
+          coverImageFile,
+          fileType,
+        );
+        return res.status(201).json({ message: '생성완료' });
+      } else {
+        const coverImageFile = null;
+        await this.postsService.createPost(
+          userId,
+          title,
+          subtitle,
+          content,
+          coverImageFile,
+        );
+        return res.status(201).json({ message: '생성완료' });
+      }
     } catch (error) {
       logger.error(`status code :, ${error.status}, error message : ${error}`);
       res.status(error.status).json({ error: error.message });

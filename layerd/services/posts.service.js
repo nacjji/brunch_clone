@@ -23,22 +23,32 @@ class PostsService {
     coverImageFile,
     fileType,
   ) => {
-    if (
-      fileType === 'jpg' ||
-      fileType === 'png' ||
-      fileType === 'jpeg' ||
-      fileType === 'gif' ||
-      fileType === 'webp'
-    ) {
-      await this.postRepository.createPost(
+    if (coverImageFile) {
+      if (
+        fileType === 'jpg' ||
+        fileType === 'png' ||
+        fileType === 'jpeg' ||
+        fileType === 'gif' ||
+        fileType === 'webp'
+      ) {
+        await this.postRepository.createPost(
+          userId,
+          title,
+          subtitle,
+          content,
+          coverImageFile,
+        );
+      } else {
+        throw new UnexpectedError('jpg,png,jpeg,gif,webp만 가능합니다', 400);
+      }
+    } else {
+      return await this.postRepository.createPost(
         userId,
         title,
         subtitle,
         content,
         coverImageFile,
       );
-    } else {
-      throw new UnexpectedError('jpg,png,jpeg,gif,webp만 가능합니다', 400);
     }
   };
 
