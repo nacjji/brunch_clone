@@ -57,17 +57,20 @@ class UsersController {
           profileImageFile,
           selfIntro,
         );
+        return res.status(201).json({ result: '회원 수정 완료' });
       } else {
-        await this.usersService.updateUser({
+        const profileImageFile = null;
+        await this.usersService.updateUser(
           userId,
           snsId,
           email,
           writer,
-          profileImageFile: null,
+          profileImageFile,
           selfIntro,
-        });
+        );
+
+        return res.status(201).json({ result: '회원 수정 완료' });
       }
-      return res.status(201).json({ result: '회원 수정 완료' });
     } catch (error) {
       logger.error(`status code :, ${error.status}, error message : ${error}`);
       return res.status(error.status).json({ error: error.message });
