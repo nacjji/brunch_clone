@@ -4,7 +4,10 @@ const LikesRepository = require('../../layered/repositories/likes.repository');
 const UserInfoRepository = require('../../layered/repositories/writerInfo.repository');
 const UsersRepository = require('../../layered/repositories/users.repository');
 const { Posts, Likes, Comments, Users } = require('../../models');
-const { UnexpectedError } = require('../../middlewares/custom-exception');
+const {
+  UnexpectedError,
+  NotFoundError,
+} = require('../../middlewares/custom-exception');
 
 class PostsService {
   constructor() {
@@ -52,8 +55,8 @@ class PostsService {
     }
   };
 
-  findAllPosts = async (p) => {
-    const posts = await this.postRepository.findAllPosts(p);
+  findAllPosts = async (page) => {
+    const posts = await this.postRepository.findAllPosts(page);
 
     const result = { ...posts };
     return result;
@@ -62,6 +65,9 @@ class PostsService {
   searchPost = async (search) => await this.postRepository.searchPost(search);
 
   findDetailPost = async (postId) => {
+    const postExist = await this.postRepository.postExist(postId);
+    if (!postExist) throw new NotFoundError('없는 게시글입니다.', 404);
+
     const detailPost = await this.postRepository.findDetailPost(postId);
     const likeCount = await this.likesRepository.likeCount(postId);
     const commentCount = await this.commentRepository.commentCount(postId);
@@ -87,7 +93,10 @@ class PostsService {
     return posts;
   };
 
-  updatePost = async (postId, title, subtitle, content, coverImageFile) =>
+  updatePost = async (postId, title, subtitle, content, coverImageFile) => {
+    const postExist = await this.postRepository.postExist(postId);
+    if (!postExist) throw new NotFoundError('없는 게시글입니다.', 404);
+
     await this.postRepository.updatePost(
       postId,
       title,
@@ -95,11 +104,22 @@ class PostsService {
       content,
       coverImageFile,
     );
+  };
   deletePost = async (postId) => {
+    const postExist = await this.postRepository.postExist(postId);
+    if (!postExist) throw new NotFoundError('없는 게시글입니다.', 404);
+
     await this.postRepository.deletePost(postId);
   };
 
   restorePost = async (postId) => {
+    if (isDeleted.deletedAt) {
+      throw new UnexpectedError('삭제되지 않은 게시글입니다.', 400);
+    }
+
+    const postExist = await this.postRepository.postExist(postId);
+    if (!postExist) throw new NotFoundError('없는 게시글입니다.', 404);
+
     await this.postRepository.restorePost(postId);
   };
 }

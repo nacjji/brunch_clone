@@ -6,28 +6,21 @@ class FollowRepository {
   }
 
   followUser = async (userId, interestUser) => {
-    if (userId === interestUser) {
-      throw new UnexpectedError('나를 팔로우할 수 없습니다.', 400);
-    }
-    const existUser = await Users.findOne({
-      where: { userId: interestUser },
-      raw: true,
-    });
-    if (!existUser) {
-      throw new UnexpectedError('존재하지 않는 사용자', 400);
-    }
-    const isfollowed = await this.followsModel.findAll({
-      where: { userId },
-      raw: true,
-    });
-    for (const i of isfollowed) {
-      if (i.interestUser === interestUser) {
-        await this.followsModel.destroy({ where: { userId, interestUser } });
-        return { message: '구독 취소' };
-      }
-    }
     await this.followsModel.create({ userId, interestUser });
     return { message: '구독' };
+  };
+
+  unFollowUser = async (userId, interestUser) => {
+    await this.followsModel.destroy({ where: { userId, interestUser } });
+    return { message: '구독 취소' };
+  };
+
+  isFollowed = async (userId) => {
+    await this.followsModel.findAll({ where: { userId } });
+  };
+
+  existUser = async (userId) => {
+    await Users.findOne({ where: { userId } });
   };
 
   interestUser = async (userId) => {
