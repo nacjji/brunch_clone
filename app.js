@@ -2,7 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const dotenv = require('dotenv');
 dotenv.config();
-const router = require('./layerd/routes/index');
+const router = require('./layered/routes/index');
 const app = express();
 const helmet = require('helmet');
 const passport = require('passport');

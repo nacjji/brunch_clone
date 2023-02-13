@@ -1,4 +1,4 @@
-const LikesRepository = require('../../layerd/repositories/likes.repository');
+const LikesRepository = require('../../layered/repositories/likes.repository');
 const { Likes, Posts } = require('../../models');
 class LikesService {
   constructor() {

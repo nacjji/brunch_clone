@@ -1,4 +1,4 @@
-const LikesService = require('../../layerd/services/likes.service');
+const LikesService = require('../../layered/services/likes.service');
 const logger = require('../../config/loggers');
 
 class LikesController {

@@ -1,4 +1,4 @@
-const FollowRepository = require('../../layerd/repositories/follows.repository');
+const FollowRepository = require('../../layered/repositories/follows.repository');
 const { Follows } = require('../../models');
 class FollowService {
   constructor() {
