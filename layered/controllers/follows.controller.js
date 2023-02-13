@@ -1,4 +1,4 @@
-const FollowService = require('../../layerd/services/follows.service');
+const FollowService = require('../../layered/services/follows.service');
 const logger = require('../../config/loggers');
 
 class FollowController {

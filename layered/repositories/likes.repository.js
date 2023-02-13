@@ -1,4 +1,7 @@
-const { UnexpectedError } = require('../../middlewares/custom-exception');
+const {
+  UnexpectedError,
+  NotFoundError,
+} = require('../../middlewares/custom-exception');
 const Sequelize = require('sequelize');
 class LikesRepository {
   constructor(likesModel, postModel) {
@@ -7,18 +10,17 @@ class LikesRepository {
   }
 
   likePost = async (postId, userId) => {
-    const existPost = await this.postModel.findOne({ where: { postId } });
-
-    const isLike = await this.likesModel.findAll({ where: { postId, userId } });
-    if (!existPost) {
-      throw new UnexpectedError('없는 게시글입니다.', 404);
-    }
-    if (isLike.length) {
-      await this.likesModel.destroy({ where: { postId, userId } });
-      return { message: 'dislike' };
-    }
     await this.likesModel.create({ postId, userId });
     return { message: 'like' };
+  };
+
+  isLiked = async (postId, userId) => {
+    await this.likesModel.findOne({ where: { postId, userId } });
+  };
+
+  unLike = async (postId, userId) => {
+    await this.likesModel.destroy({ where: { postId, userId } });
+    return { message: 'dislike' };
   };
 
   likeCount = async (postId) => {
@@ -29,7 +31,6 @@ class LikesRepository {
       ],
       raw: true,
     });
-    //
     return count[0];
   };
 }

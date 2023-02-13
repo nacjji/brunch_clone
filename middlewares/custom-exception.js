@@ -7,6 +7,15 @@ class UnexpectedError extends Error {
   }
 }
 
+class NotFoundError extends Error {
+  constructor(message, status) {
+    super(message);
+    this.stauts = status || 404;
+    this.name = 'Not Found Error';
+  }
+}
+
 module.exports = {
   UnexpectedError,
+  NotFoundError,
 };

@@ -1,5 +1,5 @@
 const logger = require('../../config/loggers');
-const PostsService = require('../../layerd/services/posts.service');
+const PostsService = require('../../layered/services/posts.service');
 
 class PostsController {
   postsService = new PostsService();

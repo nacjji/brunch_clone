@@ -11,7 +11,7 @@ router.use('/user', userRouter);
 const commentsRouter = require('./comments.routes');
 router.use('/comment', commentsRouter);
 
-const likeRouter = require('./like.route');
+const likeRouter = require('./like.routes');
 router.use('/like', likeRouter);
 
 const followRouter = require('./follow.routes');
