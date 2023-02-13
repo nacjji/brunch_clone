@@ -1,10 +1,10 @@
-import PostsRepository from '../repositories/posts.repository';
-import CommentsRepository from '../repositories/comments.repository';
-import LikesRepository from '../repositories/likes.repository';
-import UserInfoRepository from '../repositories/writerInfo.repository';
-import UsersRepository from '../repositories/users.repository';
-import { Posts, Likes, Comments, Users } from '../../models';
-import { UnexpectedError } from '../../middlewares/custom-exception';
+const PostsRepository = require('../repositories/posts.repository');
+const CommentsRepository = require('../../layered/repositories/comments.repository');
+const LikesRepository = require('../../layered/repositories/likes.repository');
+const UserInfoRepository = require('../../layered/repositories/writerInfo.repository');
+const UsersRepository = require('../../layered/repositories/users.repository');
+const { Posts, Likes, Comments, Users } = require('../../models');
+const { UnexpectedError } = require('../../middlewares/custom-exception');
 
 class PostsService {
   constructor() {
@@ -104,4 +104,4 @@ class PostsService {
   };
 }
 
-export default PostsService;
+module.exports = PostsService;
